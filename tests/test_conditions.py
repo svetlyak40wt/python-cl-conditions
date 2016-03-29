@@ -4,6 +4,7 @@ from unittest import TestCase
 
 from hamcrest import assert_that, contains
 
+from conditions.exceptions import RestartNotFoundError
 from conditions import (
     restart,
     handle,
@@ -75,3 +76,16 @@ class HandlerTests(TestCase):
                         'FOO before signal',
                         'Calling bar instead of failed foo',
                         'BAR'))
+
+
+    def test_when_restart_not_found(self):
+        def choose_bar(e):
+            invoke_restart('some_strange_restart')
+
+        with handle(TestError, choose_bar):
+            self.assertRaises(RestartNotFoundError, self.blah)
+
+        assert_that(self.messages,
+                    contains(
+                        'Calling foo',
+                        'FOO before signal'))
