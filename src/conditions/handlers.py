@@ -18,7 +18,7 @@ def handle(cls, callback):
         _handlers.stack.popleft()
 
 
-def find_handler(cls):
+def find_handler(e):
     for handled_cls, callback in _handlers.stack:
-        if handled_cls == cls:
+        if isinstance(e, handled_cls):
             return callback

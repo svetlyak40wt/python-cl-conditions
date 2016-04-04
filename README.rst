@@ -58,6 +58,32 @@ Implementation of the Common Lisp's conditions system in Python.
 
 * Free software: BSD license
 
+Rationale
+=========
+
+Common Lisp (CL) has a very rich condition system. Conditions in CL is a some sort
+of signals, and used not only for exception handling but also in some other patterns.
+There is a very good explanation of how they works – a chapter from the book
+Practical Common Lisp by Peter Seibel:
+`Beyond Exception Handling: Conditions and Restarts`_.
+
+Python's exceptions cover only one scenerio from this book, but Common Lisp's conditions
+allows more interesting usage, particlarly "restarts". Restart is a way to continue
+code execution after the exception was signaled, without unwinding a call stack.
+I'll repeat: without unwinding a call stack.
+
+Moreover, conditions allows to the author of the library to define varios cases to be
+choosen to take over the exception.
+
+http://www.gigamonkeys.com/book/beyond-exception-handling-conditions-and-restarts.html
+
+Example
+-------
+
+Here is example from the book, but implemented in python using `conditions`_ library.
+
+
+
 Installation
 ============
 

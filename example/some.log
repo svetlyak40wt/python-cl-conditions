@@ -1,0 +1,5 @@
+INFO: Starting server
+INFO: Horay
+DEBUG: Listening on 0.0.0.0:8000
+Some strange line
+ERROR: blah happened

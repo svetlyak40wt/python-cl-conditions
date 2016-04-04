@@ -3,9 +3,9 @@
 from .handlers import find_handler
 
 
-def signal(obj):
-    callback = find_handler(obj.__class__)
+def signal(e):
+    callback = find_handler(e)
     if callback is None:
-        raise obj
+        raise e
     else:
-        return callback(obj)
+        return callback(e)

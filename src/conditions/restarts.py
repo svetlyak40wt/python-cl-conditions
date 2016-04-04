@@ -1,12 +1,12 @@
 # coding: utf-8
 
 import threading
-from contextlib import contextmanager
 from collections import deque
 
 from .exceptions import (
     RestartNotFoundError,
     InvokeRestart)
+from .signals import signal
 
 
 _restarts = threading.local()
@@ -27,16 +27,32 @@ def invoke_restart(name, *args, **kwargs):
     raise InvokeRestart(callback, *args, **kwargs)
 
 
-@contextmanager
-def restart(name, callback):
-    _restarts.stack.appendleft((name, callback))
 
-    try:
-        yield
-    except InvokeRestart as e:
-        if e.callback is callback:
-            callback(*e.args, **e.kwargs)
-        else:
-            raise
-    finally:
-        _restarts.stack.popleft()
+class restarts(object):
+    def __init__(self, *callbacks):
+        self.callbacks = callbacks
+
+    def __enter__(self):
+        for callback in self.callbacks:
+            name = callback.__name__
+            if name == '<lambda>':
+                raise RuntimeError('Restart function should have name')
+            _restarts.stack.appendleft((name, callback))
+        return self
+
+    def __call__(self, callback, *args, **kwargs):
+        try:
+            return callback(*args, **kwargs)
+        except Exception as e:
+            try:
+                return signal(e)
+            except InvokeRestart as e:
+                return e.callback()
+
+    def __exit__(self, *args):
+        for i in range(len(self.callbacks)):
+            _restarts.stack.popleft()
+
+
+def restart(callback):
+    return restarts(callback)
