@@ -61,3 +61,4 @@ docs/_build
 .bootstrap
 .appveyor.token
 *.bak
+/env

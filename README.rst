@@ -80,9 +80,68 @@ http://www.gigamonkeys.com/book/beyond-exception-handling-conditions-and-restart
 Example
 -------
 
-Here is example from the book, but implemented in python using `conditions`_ library.
+Here is example from the book, but implemented in python using `conditions`_ library::
+
+    def parse_log_entry(text):
+        """This function does all real job on log line parsing.
+        it setup two cases for restart parsing if a line
+        with wrong format was found.
+
+        Restarts:
+        - use_value: just retuns an object it was passed. This can
+          be any value.
+        - reparse: calls `parse_log_entry` again with other text value.
+          Beware, this call can lead to infinite recursion.
+        """
+        text = text.strip()
+
+        if well_formed_log_entry_p(text):
+            return LogEntry(text)
+        else:
+            def use_value(obj):
+                return obj
+            def reparse(text):
+                return parse_log_entry(text)
+
+            with restarts(use_value,
+                          reparse) as call:
+                return call(signal, MalformedLogEntryError(text))
 
 
+    def log_analyzer(path):
+        """This procedure replaces every line which can't be parsed
+        with special object MalformedLogEntry.
+        """
+        with handle(MalformedLogEntryError,
+                      lambda (c):
+                          invoke_restart('use_value',
+                                         MalformedLogEntry(c.text))):
+            for filename in find_all_logs(path):
+                analyze_log(filename)
+
+
+    def log_analyzer2(path):
+        """This procedure considers every line which can't be parsed
+        as a line with ERROR level.
+        """
+        with handle(MalformedLogEntryError,
+                      lambda (c):
+                          invoke_restart('reparse',
+                                         'ERROR: ' + c.text)):
+            for filename in find_all_logs(path):
+                analyze_log(filename)
+
+
+What we have here is a function ``parse_log_entry`` which defines two
+ways of handling an exceptional situation: ``use_value`` and ``reparse``.
+But decision how bad lines should be handled is made by high level function
+``log_analyser``. Original book's chapter have only one version of the
+``log_analyser``, but I've added an alternative ``log_analyser2`` to
+illustrate a why restarts is a useful pattern. The value of this
+pattern is in the ability to move dicision making code from low level
+library functions into the higher level business logic.
+
+Full version of this example can be found in ``example/example.py`` file.
 
 Installation
 ============
