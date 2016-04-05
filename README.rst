@@ -142,7 +142,7 @@ illustrate a why restarts is a useful pattern. The value of this
 pattern is in the ability to move dicision making code from low level
 library functions into the higher level business logic.
 
-Full version of this example can be found in example/example.py_ file.
+Full version of this example can be found in `example/example.py`_ file.
 
 .. _conditions: https://github.com/svetlyak40wt/python-cl-conditions
 .. _example/example.py:https://github.com/svetlyak40wt/python-cl-conditions/blob/master/example/example.py
