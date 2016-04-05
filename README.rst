@@ -145,7 +145,7 @@ library functions into the higher level business logic.
 Full version of this example can be found in `example/example.py`_ file.
 
 .. _conditions: https://github.com/svetlyak40wt/python-cl-conditions
-.. _example/example.py: https://github.com/svetlyak40wt/python-cl-conditions/blob/master/example/example.py
+.. _`example/example.py`: https://github.com/svetlyak40wt/python-cl-conditions/blob/master/example/example.py
 
 Installation
 ============
