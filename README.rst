@@ -2,6 +2,8 @@
 Overview
 ========
 
+
+
 .. start-badges
 
 .. list-table::
@@ -75,7 +77,7 @@ I'll repeat: without unwinding a call stack.
 Moreover, conditions allows to the author of the library to define varios cases to be
 choosen to take over the exception.
 
-http://www.gigamonkeys.com/book/beyond-exception-handling-conditions-and-restarts.html
+.. _`Beyond Exception Handling: Conditions and Restarts`: http://www.gigamonkeys.com/book/beyond-exception-handling-conditions-and-restarts.html
 
 Example
 -------
