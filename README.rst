@@ -133,7 +133,6 @@ Here is example from the book, but implemented in python using `conditions`_ lib
             for filename in find_all_logs(path):
                 analyze_log(filename)
 
-
 What we have here is a function ``parse_log_entry`` which defines two
 ways of handling an exceptional situation: ``use_value`` and ``reparse``.
 But decision how bad lines should be handled is made by high level function
@@ -143,7 +142,10 @@ illustrate a why restarts is a useful pattern. The value of this
 pattern is in the ability to move dicision making code from low level
 library functions into the higher level business logic.
 
-Full version of this example can be found in ``example/example.py`` file.
+Full version of this example can be found in example/example.py_ file.
+
+.. _conditions: https://github.com/svetlyak40wt/python-cl-conditions
+.. _example/example.py:https://github.com/svetlyak40wt/python-cl-conditions/blob/master/example/example.py
 
 Installation
 ============
