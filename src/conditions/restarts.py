@@ -13,7 +13,6 @@ _restarts = threading.local()
 _restarts.stack = deque()
 
 
-
 def find_restart(name):
     for restart_name, callback in _restarts.stack:
         if restart_name == name:
@@ -25,7 +24,6 @@ def invoke_restart(name, *args, **kwargs):
     if callback is None:
         raise RestartNotFoundError(name)
     raise InvokeRestart(callback, *args, **kwargs)
-
 
 
 class restarts(object):
