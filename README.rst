@@ -2,7 +2,9 @@
 Overview
 ========
 
+Implementation of the Common Lisp's conditions system in Python.
 
+Free software: BSD license.
 
 .. start-badges
 
@@ -55,10 +57,6 @@ Overview
 
 
 .. end-badges
-
-Implementation of the Common Lisp's conditions system in Python.
-
-* Free software: BSD license
 
 Rationale
 =========
@@ -184,4 +182,12 @@ Note, to combine the coverage data from all the tox environments run:
             PYTEST_ADDOPTS=--cov-append tox
 
 
+Related projects
+================
+
+There is also withrestart_ python library, created with
+the same intent as conditions_. But it have clunky API and
+weird name seems abandoned since 2010.
+
+.. _withrestart: https://pypi.python.org/pypi/withrestart
 

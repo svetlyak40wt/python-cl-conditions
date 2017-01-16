@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import os
+import re
 
 
 extensions = [
@@ -26,7 +27,20 @@ project = u'cl-conditions'
 year = '2016'
 author = u'Alexander Artemenko'
 copyright = '{0}, {1}'.format(year, author)
-version = release = u'0.1.0'
+
+
+def read_version():
+    """Read version from the first line starting with digit
+    """
+    regex = re.compile('^(?P<number>\d.*?) .*$')
+
+    with open('../CHANGELOG.rst') as f:
+        for line in f:
+            match = regex.match(line)
+            if match:
+                return match.group('number')
+
+version = read_version()
 
 pygments_style = 'trac'
 templates_path = ['.']
