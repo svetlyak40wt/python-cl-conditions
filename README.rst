@@ -61,26 +61,26 @@ Free software: BSD license.
 Rationale
 =========
 
-Common Lisp (CL) has a very rich condition system. Conditions in CL is a some sort
-of signals, and used not only for exception handling but also in some other patterns.
-There is a very good explanation of how they works – a chapter from the book
+Common Lisp (CL) has a very rich condition system. Conditions in CL are a kind
+of signals, used not only for exception handling but also in some other patterns.
+There is a very good explanation of how they work – a chapter from the book
 Practical Common Lisp by Peter Seibel:
 `Beyond Exception Handling: Conditions and Restarts`_.
 
-Python's exceptions cover only one scenerio from this book, but Common Lisp's conditions
-allows more interesting usage, particlarly "restarts". Restart is a way to continue
-code execution after the exception was signaled, without unwinding a call stack.
-I'll repeat: without unwinding a call stack.
+Python's exceptions cover only one scenario from this book, but Common Lisp's conditions
+allows more interesting usage, particularly "restarts". A restart is a way to continue
+code execution after an exception was signaled, without unwinding the call stack.
+I'll repeat: without unwinding the call stack.
 
-Moreover, conditions allows to the author of the library to define varios cases to be
-choosen to take over the exception.
+Moreover, conditions allow the author of the library to define various cases to be
+chosen to handle the exception.
 
 .. _`Beyond Exception Handling: Conditions and Restarts`: http://www.gigamonkeys.com/book/beyond-exception-handling-conditions-and-restarts.html
 
 Example
 -------
 
-Here is example from the book, but implemented in python using `conditions`_ library::
+Here is an example from the book, but implemented in Python using the `conditions`_ library::
 
     def parse_log_entry(text):
         """This function does all real job on log line parsing.
@@ -131,16 +131,16 @@ Here is example from the book, but implemented in python using `conditions`_ lib
             for filename in find_all_logs(path):
                 analyze_log(filename)
 
-What we have here is a function ``parse_log_entry`` which defines two
-ways of handling an exceptional situation: ``use_value`` and ``reparse``.
-But decision how bad lines should be handled is made by high level function
-``log_analyser``. Original book's chapter have only one version of the
-``log_analyser``, but I've added an alternative ``log_analyser2`` to
-illustrate a why restarts is a useful pattern. The value of this
-pattern is in the ability to move dicision making code from low level
-library functions into the higher level business logic.
+What we have here is a function ``parse_log_entry``, which defines two ways of
+handling an exceptional situation: ``use_value`` and ``reparse``. But the
+decision of how bad lines should be handled is made by the high level function
+``log_analyser``. The original book chapter has only one version of
+``log_analyser``, but I've added an alternative ``log_analyser2`` to illustrate
+why restarts are a useful pattern. The value of this pattern is in the ability
+to move the decision making code from low level library functions into the
+higher level business logic.
 
-Full version of this example can be found in `example/example.py`_ file.
+The full version of this example can be found in `example/example.py`_.
 
 .. _conditions: https://github.com/svetlyak40wt/python-cl-conditions
 .. _`example/example.py`: https://github.com/svetlyak40wt/python-cl-conditions/blob/master/example/example.py
@@ -160,7 +160,7 @@ https://python-cl-conditions.readthedocs.org/
 Development
 ===========
 
-To run the all tests run::
+To run all tests run::
 
     tox
 
@@ -185,9 +185,8 @@ Note, to combine the coverage data from all the tox environments run:
 Related projects
 ================
 
-There is also withrestart_ python library, created with
-the same intent as conditions_. But it have clunky API and
-weird name seems abandoned since 2010.
+There is also the withrestart_ Python library, created with
+the same intent as conditions_. But it has a clunky API and
+a weird name, and seems abandoned since 2010.
 
 .. _withrestart: https://pypi.python.org/pypi/withrestart
-
