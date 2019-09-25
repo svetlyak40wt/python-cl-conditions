@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from __future__ import print_function
+
 import os
 import traceback
 
@@ -23,7 +25,7 @@ def signal(e):
     callback = find_handler(e)
     if callback is None:
         if _activate_debugger:
-            print 'Handler for error {0} not found'.format(type(e))
+            print('Handler for error {0} not found'.format(type(e)))
             traceback.print_stack()
             set_trace()
         raise e
